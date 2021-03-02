@@ -537,4 +537,6 @@ app.layout = html.Div([body])
 
 from application.dash import app
 from settings import config
-app.run_server(debug=config.debug, host=config.host, port=config.port)
+
+if __name__ == "__main__":
+    app.run_server(debug=config.debug, host=config.host, port=config.port)
