@@ -64,7 +64,7 @@ contagiostotal = contagios2.cases.sum()
 
 
 ###############################   Contagios por mes  
-# by moths 
+# by months 
 
 format = '%d-%m-%Y'
 contagios2['days'] = pd.to_datetime(contagios2['days'], format=format)
@@ -83,7 +83,7 @@ cont_nov20 = contagios2[(contagios2.days.dt.year == 2020 ) & (contagios2.days.dt
 cont_dic20 = contagios2[(contagios2.days.dt.year == 2020 ) & (contagios2.days.dt.month == 12)]
 cont_ene21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 1)]
 cont_feb21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 2)]
-#cont_mar21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 3)]
+cont_mar21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 3)]
 
 
 # Summarize by months 
@@ -100,7 +100,7 @@ contagios_nov20 = cont_nov20.cases.sum()
 contagios_dic20 = cont_dic20.cases.sum()
 contagios_ene21 = cont_ene21.cases.sum()
 contagios_feb21 = cont_feb21.cases.sum()
-#contagios_mar21 = cont_mar21.cases.sum()
+contagios_mar21 = cont_mar21.cases.sum()
 
 
 
@@ -118,7 +118,7 @@ contagios_nov20_prom = round(cont_nov20.cases.mean())
 contagios_dic20_prom = round(cont_dic20.cases.mean())
 contagios_ene21_prom = round(cont_ene21.cases.mean())
 contagios_feb21_prom = round(cont_feb21.cases.mean())
-#contagios_mar21_prom = round(cont_mar21.cases.mean())
+contagios_mar21_prom = round(cont_mar21.cases.mean())
 
 
 
@@ -153,7 +153,7 @@ dec_nov20 = decesos2[(decesos2.days.dt.year == 2020 ) & (decesos2.days.dt.month 
 dec_dic20 = decesos2[(decesos2.days.dt.year == 2020 ) & (decesos2.days.dt.month == 12)]
 dec_ene21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 1)]
 dec_feb21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 2)]
-#dec_mar21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 3)]
+dec_mar21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 3)]
 
 
 
@@ -171,7 +171,7 @@ decesos_nov20 = dec_nov20.cases.sum()
 decesos_dic20 = dec_dic20.cases.sum()
 decesos_ene21 = dec_ene21.cases.sum()
 decesos_feb21 = dec_feb21.cases.sum()
-#decesos_mar21 = dec_mar21.cases.sum()
+decesos_mar21 = dec_mar21.cases.sum()
 
 
 #means
@@ -188,7 +188,7 @@ decesos_nov20_prom = round(dec_nov20.cases.mean())
 decesos_dic20_prom = round(dec_dic20.cases.mean())
 decesos_ene21_prom = round(dec_ene21.cases.mean())
 decesos_feb21_prom = round(dec_feb21.cases.mean())
-#decesos_mar21_prom = round(dec_mar21.cases.mean())
+decesos_mar21_prom = round(dec_mar21.cases.mean())
 
 
 
@@ -245,11 +245,16 @@ deceedos2a = pd.read_csv('0000proceso.csv')
 #para pie chart Decesos
 deceedosg = deceedos.stb.freq(['Nom_Ent'],value='total', thresh=60, other_label="Resto del país")
 
+
+
+
+#############################################
+# G R A F I C A S 
 ############################################# Grafica1
 figaro = go.Figure()
 figaro.add_trace(go.Bar(x=contagios2['days'],y=contagios2['cases'],
                 #name='Contagios confirmados COVID-19',
-                marker_color='firebrick'  # cambiar nuemeritos de rgb
+                marker_color='indianred'  # cambiar nuemeritos de rgb
                 ))
 figaro.update_layout(
     paper_bgcolor='rgba(0,0,0,0)',
@@ -292,58 +297,58 @@ figaro2.update_layout(
     #height=400
     )
 
-############################### 1 Titulo Contagios totales 
-patabla2 = {'Contagios': [str(f"{contagiostotal:,d}")] }    
-patabla3 = pd.DataFrame (patabla2)
-
-############################### 2 Titulo Decesos totales 
-patabla2a = {'Decesos': [str(f"{decesos_tot:,d}") ] }
-patabla3a = pd.DataFrame (patabla2a)
 
 ###################################################Tabla meses
 patabla6 = {
-            'febrero20'   : [str(f"{contagios_feb20:,d}")],#, decesos_feb20],
-            'marzo20'     : [str(f"{contagios_mar20:,d}")],#, decesos_mar20],
-            'abril20'     : [str(f"{contagios_abr20:,d}")],#, decesos_abr20],
-            'mayo20'      : [str(f"{contagios_may20:,d}")],#, decesos_may20],
-            'junio20'     : [str(f"{contagios_jun20:,d}")],#, decesos_jun20],
-            'julio20'     : [str(f"{contagios_jul20:,d}")],#, decesos_jul20],
-            'agosto20'    : [str(f"{contagios_ago20:,d}")],#, decesos_ago20],
-            'septiembre20': [str(f"{contagios_sep20:,d}")],#, decesos_sep20],
-            'octubre20'   : [str(f"{contagios_oct20:,d}")],#, decesos_oct20],
-            'noviembre20' : [str(f"{contagios_nov20:,d}")],#, decesos_nov20],
-            'diciembre20' : [str(f"{contagios_dic20:,d}")],#, decesos_dic20],
-            'enero21'     : [str(f"{contagios_ene21:,d}")],#, decesos_ene21],
-            'febrero21'   : [str(f"{contagios_feb21:,d}")],#, decesos_feb21],
+            'Feb20'     : [str(f"{contagios_feb20:,d}")],#, decesos_feb20],
+            'Mar20'     : [str(f"{contagios_mar20:,d}")],#, decesos_mar20],
+            'Abr20'     : [str(f"{contagios_abr20:,d}")],#, decesos_abr20],
+            'May20'     : [str(f"{contagios_may20:,d}")],#, decesos_may20],
+            'Jun20'     : [str(f"{contagios_jun20:,d}")],#, decesos_jun20],
+            'Jul20'     : [str(f"{contagios_jul20:,d}")],#, decesos_jul20],
+            'Ago20'     : [str(f"{contagios_ago20:,d}")],#, decesos_ago20],
+            'Sept20'    : [str(f"{contagios_sep20:,d}")],#, decesos_sep20],
+            'Oct20'     : [str(f"{contagios_oct20:,d}")],#, decesos_oct20],
+            'Nov20' : [str(f"{contagios_nov20:,d}")],#, decesos_nov20],
+            'Dic20' : [str(f"{contagios_dic20:,d}")],#, decesos_dic20],
+            'Ene21'     : [str(f"{contagios_ene21:,d}")],#, decesos_ene21],
+            'Feb21'   : [str(f"{contagios_feb21:,d}")],#, decesos_feb21],
+            'Mar21'     : [str(f"{contagios_mar21:,d}")],#, decesos_feb21],
+
                             }
 
 
-patabla7 = pd.DataFrame (patabla6, columns = [#'blanc',
-                                              'febrero20','marzo20','abril20','mayo20','junio20',
-    'julio20','agosto20','septiembre20','octubre20','noviembre20','diciembre20',
-                                              'enero21','febrero21'])
+patabla7 = pd.DataFrame (patabla6, columns = [
+                                              'Feb20','Mar20','Abr20','May20','Jun20',
+    'Jul20','Ago20','Sept20','Oct20','Nov20','Dic20',
+                                              'Ene21','Feb21', 'Mar21'])
 
 ################################################################Cintillo mensual decesos
 patabla6a = {
-            'febrero20'   : [str(f"{decesos_feb20:,d}")],#, decesos_feb20],
-            'marzo20'     : [str(f"{decesos_mar20:,d}")],#, decesos_mar20],
-            'abril20'     : [str(f"{decesos_abr20:,d}")],#, decesos_abr20],
-            'mayo20'      : [str(f"{decesos_may20:,d}")],#, decesos_may20],
-            'junio20'     : [str(f"{decesos_jun20:,d}")],#, decesos_jun20],
-            'julio20'     : [str(f"{decesos_jul20:,d}")],#, decesos_jul20],
-            'agosto20'    : [str(f"{decesos_ago20:,d}")],#, decesos_ago20],
-            'septiembre20': [str(f"{decesos_sep20:,d}")],#, decesos_sep20],
-            'octubre20'   : [str(f"{decesos_oct20:,d}")],#, decesos_oct20],
-            'noviembre20' : [str(f"{decesos_nov20:,d}")],#, decesos_nov20],
-            'diciembre20' : [str(f"{decesos_dic20:,d}")],#, decesos_dic20],
-            'enero21'     : [str(f"{decesos_ene21:,d}")],#, decesos_ene21],
-            'febrero21'   : [str(f"{decesos_feb21:,d}")],#, decesos_feb21],
+            'Feb20'   : [str(f"{decesos_feb20:,d}")],#, decesos_feb20],
+            'Mar20'   : [str(f"{decesos_mar20:,d}")],#, decesos_mar20],
+            'Abr20'   : [str(f"{decesos_abr20:,d}")],#, decesos_abr20],
+            'May20'   : [str(f"{decesos_may20:,d}")],#, decesos_may20],
+            'Jun20'   : [str(f"{decesos_jun20:,d}")],#, decesos_jun20],
+            'Jul20'   : [str(f"{decesos_jul20:,d}")],#, decesos_jul20],
+            'Ago20'   : [str(f"{decesos_ago20:,d}")],#, decesos_ago20],
+            'Sept20'  : [str(f"{decesos_sep20:,d}")],#, decesos_sep20],
+            'Oct20'   : [str(f"{decesos_oct20:,d}")],#, decesos_oct20],
+            'Nov20'   : [str(f"{decesos_nov20:,d}")],#, decesos_nov20],
+            'Dic20'   : [str(f"{decesos_dic20:,d}")],#, decesos_dic20],
+            'Ene21'   : [str(f"{decesos_ene21:,d}")],#, decesos_ene21],
+            'Feb21'   : [str(f"{decesos_feb21:,d}")],#, decesos_feb21],
+            'Mar21'   : [str(f"{decesos_mar21:,d}")],#, decesos_mar21],
+
                             }
 
 patabla7a = pd.DataFrame (patabla6a, columns = [
-                                              'febrero20','marzo20','abril20','mayo20','junio20','julio20',
-                                              'agosto20','septiembre20','octubre20','noviembre20','diciembre20',
-                                              'enero21','febrero21'])
+                                              'Feb20','Mar20','Abr20','May20','Jun20',
+    'Jul20','Ago20','Sept20','Oct20','Nov20','Dic20',
+                                              'Ene21','Feb21', 'Mar21'])
+
+
+
 
 ########################################################### Graficas barras
 # 1 Contagios
@@ -358,24 +363,24 @@ g10edosc.add_trace(go.Bar(x=contaedos['total'],y=contaedos['Nom_Ent'],
 g10edosc.update_layout(
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    xaxis_tickangle=-45,
+    #xaxis_tickangle=-45,
     template = 'simple_white',
     title='Contagios',
-    title_font_family= 'Monserrat ExtraBold',
-    title_font_color= 'white',
-    title_font_size= 22,
-    xaxis_tickfont_size= 3,
+    title_font_family= 'Montserrat Medium',
+    title_font_color= 'lightpink',
+    title_font_size= 18,
+    xaxis_tickfont_size= 12,
     yaxis=dict(
         titlefont_size=80,
-        tickfont_size= 10,
+        tickfont_size= 12,
         titlefont_family= 'Monserrat ExtraBold',
+        title_font_color= "white"
         ))
 
 ########################################################  2 Tasa Contagios
 g10edosct = go.Figure()
 g10edosct.add_trace(go.Bar(x=contaedos2a['tasa'],y=contaedos2a['Nom_Ent'],
                           orientation='h',
-                #name='Contagios confirmados COVID-19',
                           marker_color='palevioletred',
                          ))
 g10edosct.update_layout(
@@ -384,9 +389,9 @@ g10edosct.update_layout(
     xaxis_tickangle=-45,
     template = 'simple_white',
     title='Tasa Contagios',
-    title_font_family= 'Monserrat ExtraBold',
-    title_font_color= 'white',
-    title_font_size= 22,
+    title_font_family= 'Montserrat Medium',
+    title_font_color= 'lightpink',
+    title_font_size= 18,
     xaxis_tickfont_size= 3,
     yaxis=dict(
         titlefont_size=80,
@@ -398,7 +403,7 @@ g10edosct.update_layout(
 g10edosd = go.Figure()
 g10edosd.add_trace(go.Bar(x=deceedos['total'],y=contaedos['Nom_Ent'],
                 #name='Contagios confirmados COVID-19',
-                marker_color='olive',
+                marker_color='gray',
                 orientation='h'          
                 # cambiar nuemeritos de rgb
                 ))
@@ -408,23 +413,27 @@ g10edosd.update_layout(
     plot_bgcolor='rgba(0,0,0,0)',
     xaxis_tickangle=-45,
     template = 'simple_white',
+   
     title='Decesos',
-    title_font_family= 'Monserrat ExtraBold',
-    title_font_color= 'white',
-    title_font_size= 22,
+    uniformtext_minsize=10,
+    uniformtext_mode='hide',
+    title_font_family= 'Montserrat Medium',
+    title_font_color= 'lightgray',
+    title_font_size= 18,
     xaxis_tickfont_size= 3,
     yaxis=dict(
         titlefont_size=80,
         tickfont_size= 10,
-        titlefont_family= 'Monserrat ExtraBold',
+        titlefont_family= 'Montserrat ExtraBold',
         ))
+
 ############################################################ 4 Tasa de Letalidad
 g10edosdt = go.Figure()
 g10edosdt.add_trace(go.Bar(x=deceedos2a['tasa'],y=contaedos2a['Nom_Ent'],
                 #name='Contagios confirmados COVID-19',
                 marker_color='slategray',
                 orientation='h'          
-                # cambiar nuemeritos de rgb
+                
                 ))
 g10edosdt.update_layout(
     paper_bgcolor='rgba(0,0,0,0)',
@@ -432,20 +441,22 @@ g10edosdt.update_layout(
     xaxis_tickangle=-45,
     template = 'simple_white',
     title='Tasa de Decesos',
-    title_font_family= 'Monserrat ExtraBold',
-    title_font_color= 'white',
-    title_font_size= 22,
+    title_font_family= 'Montserrat Medium',
+    title_font_color= 'lightgray',
+    title_font_size= 18,
     xaxis_tickfont_size= 3,
     yaxis=dict(
         titlefont_size=80,
         tickfont_size= 10,
-        titlefont_family= 'Monserrat ExtraBold',
+        titlefont_family= 'Montserrat ExtraBold',
          #autosize=True,
    
    
         ))
 
-############################### Gráfica Pie de Contagios por estado
+
+
+############################### Gráfica PIE de Contagios por estado
 
 piec = px.pie(contaedog, values='total', names='Nom_Ent',
              color_discrete_sequence=px.colors.sequential.Reds,
@@ -460,7 +471,7 @@ piec.update_layout(paper_bgcolor='rgba(0,0,0,0)',
                   width= 550,
                   height=550,
                   title_font_size = 12,
-                  font_color="black",
+                  font_color="gray",
                   title_font_color="firebrick",
                   #title_font_family = 'Monserrat ExtraBold' 
                    )
@@ -485,10 +496,19 @@ pied.update_layout(paper_bgcolor='rgba(0,0,0,0)',
                   width= 425,
                   height=400,
                   title_font_size = 15,
-                  font_color="black",
+                  font_color="gray",
                   title_font_color="black",
                   #title_font_family = 'Monserrat ExtraBold' 
                    )
+
+
+
+
+
+
+
+####################################
+
 # A P P
 
 ####################################
@@ -502,35 +522,169 @@ sourceurl='https://datos.covid-19.conacyt.mx/'
 
 
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY])
+
 body = html.Div([
-       html.H1("COVID-19 en México"),
-       html.H3("Secretaría de Servicios Parlamentarios, Cámara de Diputados"),
-       
-       
-       html.H4((d2)),
        html.Hr(),
-       dbc.Table.from_dataframe(patabla3), #striped=True, bordered=False, hover=True,
-       #                        style={'left': '3vw', 'top': '-75vh', 'width': '240px'})
+
+# Title
+        dbc.Row(
+           [
+           dbc.Col(html.H1("COVID-19 en México"),
+                  width={'size' : 9,
+                         'offset' : 4, 
+                         'color' : 'danger'
+                        })
+                   ,]),
+
+# Fecha de actualización
+    
+       dbc.Row(
+           [dbc.Col(html.H6(d2 ),
+               width={'size' : "auto",
+                      'offset' : 5,
+            }), 
+            ]),
+    
+       html.Hr(),
+
+    
+#################################### Franja CONTAGIOS    
+#Contagios 
+       # Suma total de contagios    
+      dbc.Row(
+           [dbc.Col(html.H4("Contagios"),
+                  width={'size' : "auto",'offset' : 1}),]),
+     dbc.Row(
+           [
+            dbc.Col(html.H2([str(f"{contagiostotal:,d}")]),
+               width={'size' : "auto",'offset' : 1, 'colors' : 'danger'}), 
+               ]),
+           
+       # Grafica de contagios    
        dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=figaro, config= "autosize")))]),
-       dbc.Table.from_dataframe(patabla7, size= "xsm"),
-       #striped=True, bordered=True, hover=True)
-       html.Hr(), #Espacio
-       dbc.Table.from_dataframe(patabla3a), 
+       
+       dbc.Row(
+           [
+               dbc.Col(html.H5("Contagios acumulados por mes"),
+                      width={'size' : "auto",'offset' : 1,}), 
+           ]
+           ),
+           
+       # Tabla de contagios mensuales
+       dbc.Row(
+           [
+               dbc.Col(dbc.Table.from_dataframe(patabla7),)]),
+       html.Hr(), 
+
+    
+#################################### Franja DECESOS    
+#Decesos 
+
+       # Suma total de contagios    
+       dbc.Row(
+           [dbc.Col(html.H4("Decesos"),
+                  width={'size' : "auto",'offset' : 1,'colors' : 'light'}),]),
+       dbc.Row(
+           [
+            dbc.Col(html.H2([str(f"{decesos_tot:,d}")]),
+               width={'size' : "auto",'offset' : 1,}), 
+               ]),
+
+       # Grafica de decesos    
        dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=figaro2, config= "autosize")))]),
-       dbc.Table.from_dataframe(patabla7a, size= "xsm"),
+       dbc.Row(
+           [
+               dbc.Col(html.H5("Decesos acumulados por mes"),
+                      width={'size' : "auto",'offset' : 1,}), 
+           ]
+           ),
+
+       # Tabla de decesos mensuales
+       dbc.Row(
+           [
+               dbc.Col(dbc.Table.from_dataframe(patabla7a, size= "xsm"))]),
        html.Hr(),
-       html.H1('Las 10 entidades con más... '),
-       dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=g10edosc, config= "autosize")))]), #Contagios
-       dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=g10edosct,config= "autosize")))]), #TasaCont.
-       dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=g10edosd, config= "autosize")))]), #Decesos
-       dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=g10edosdt,config= "autosize")))]), #TasaLetalidad
        html.Hr(),
-       html.H1('Alrededor de 60% de casos se concentran en... '),
-       html.H3("Contagios"),
-       dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=piec,config= "autosize")))]),
-       html.H3("Decesos"),
-       dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=pied,config= "autosize")))]),
+
+    
+#################################### Franja Los RANKINGS    
+# los rankings 
+    
+       dbc.Row([dbc.Col(html.H3('Las 10 entidades con más... '),
+                   width={'size' : "auto",'offset' : 1,}, 
+               )]),         
+
+       dbc.Row(
+           [
+           dbc.Col(html.Div(dcc.Graph(figure=g10edosc, 
+                               style={"size":0,
+                                          }))), 
+       
+           dbc.Col(html.Div(dcc.Graph(figure=g10edosct,
+                                style={"size":3,
+                                          }))),
+
+           dbc.Col(html.Div(dcc.Graph(figure=g10edosd, 
+                                style={"size":6,
+                                          }))),
+
+           dbc.Col(html.Div(dcc.Graph(figure=g10edosdt,
+                                style={"size":9,
+                                          }))),
+           ]),
+    
+       html.Hr(),
+
+ #################################### Franja Los PIES    
+# Distribución de contagios y decesos 
+   
+    
+       dbc.Row(
+           [
+           dbc.Col(html.H3('Alrededor de 60% de casos se concentran en... '),
+                   width={'size' : "auto",'offset' : 1,}),
+           ]),
+                
+       dbc.Row(
+           [
+           dbc.Col(html.H5("Contagios"),
+                   width={'size' : "auto",'offset' : 1,}),
+               
+           dbc.Col(html.H5("Decesos"),
+                   width={'size' : "auto",'offset' : 6,}),
+
+           ]),     
+
+       dbc.Row([
+           dbc.Col(html.Div(dcc.Graph(figure=piec,
+                                 style={"size":8,
+                                        "offset": 0
+                                          }))),
+
+           dbc.Col(html.Div(dcc.Graph(figure=pied,
+                                 style={"size":3,
+                                        "offset": 9, 
+                                        
+                                          }))),
+           ]),
+    
+       html.Hr(),
+       html.Hr(),
+
+       dbc.Row([
+           
+           dbc.Col(dbc.CardImg(src="https://github.com/fdealbam/CamaraDiputados/blob/main/application/static/logocamara.jfif?raw=true"),
+                        width=4, lg={'size': 1,  "offset": 4, }),
+           
+           dbc.Col(html.H6("Secretaría General, " 
+                           " Secretaría de Servicios Parlamentarios, "
+                           " Cámara de Diputados"),
+                  width={'size': 3, 'offset': 0}),
+               ], justify="start",),
+
+
+
 ])
 
 app.layout = html.Div([body])
