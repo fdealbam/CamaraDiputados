@@ -688,7 +688,7 @@ body = html.Div([
            dbc.Col(html.H6(" S e c r e t a r í a     G e n e r a l," 
                            " Secretaría de Servicios Parlamentarios, "
                            " México, 2021 "),
-                  width={'size': 2, 'offset': 0}),
+                  width={'size': 1, 'offset': 0}),
                ], justify="start",),
 
 
