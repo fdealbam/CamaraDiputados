@@ -36,6 +36,7 @@ contagios = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos
 decesos = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Defunciones_%s.csv" %(yea))
 SS = ('https://datos.covid-19.conacyt.mx/')
 autores = ('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/Autores.docx')
+entidades  =  pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv" )
 
 
 
@@ -251,6 +252,7 @@ deceedosg = deceedos.stb.freq(['Nom_Ent'],value='total', thresh=60, other_label=
 #############################################
 # G R A F I C A S 
 ############################################# Grafica1
+
 figaro = go.Figure()
 figaro.add_trace(go.Bar(x=contagios2['days'],y=contagios2['cases'],
                 #name='Contagios confirmados COVID-19',
@@ -501,8 +503,7 @@ pied.update_layout(paper_bgcolor='rgba(0,0,0,0)',
                   #title_font_family = 'Monserrat ExtraBold' 
                    )
 
-
-
+########################################## MAPA
 
 
 
@@ -574,7 +575,12 @@ body = html.Div([
        # Tabla de contagios mensuales
        dbc.Row(
            [
-               dbc.Col(dbc.Table.from_dataframe(patabla7),)]),
+               dbc.Col(dbc.Table.from_dataframe(patabla7,
+                       striped=True),
+                       
+                      
+          )]),
+    
        html.Hr(), 
 
     
@@ -603,7 +609,9 @@ body = html.Div([
        # Tabla de decesos mensuales
        dbc.Row(
            [
-               dbc.Col(dbc.Table.from_dataframe(patabla7a, size= "xsm"))]),
+               dbc.Col(dbc.Table.from_dataframe(patabla7a,
+                                               striped=True)
+                      )]),
        html.Hr(),
        html.Hr(),
 
@@ -675,12 +683,12 @@ body = html.Div([
        dbc.Row([
            
            dbc.Col(dbc.CardImg(src="https://github.com/fdealbam/CamaraDiputados/blob/main/application/static/logocamara.jfif?raw=true"),
-                        width=4, lg={'size': 1,  "offset": 4, }),
+                        width=4, lg={'size': 1,  "offset": 3, }),
            
-           dbc.Col(html.H6("Secretaría General, " 
+           dbc.Col(html.H6(" S e c r e t a r í a     G e n e r a l," 
                            " Secretaría de Servicios Parlamentarios, "
-                           " Cámara de Diputados"),
-                  width={'size': 3, 'offset': 0}),
+                           " México, 2021 "),
+                  width={'size': 2, 'offset': 0}),
                ], justify="start",),
 
 
