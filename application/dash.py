@@ -1,3 +1,4 @@
+
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -42,8 +43,9 @@ entidades  =  pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/mas
 
 
 
+###############################
 # TRATAMIENTO 
-###############################   Contagios  por día
+############################### Contagios  por día
 
 endall = len(contagios)
 
@@ -123,7 +125,7 @@ contagios_mar21_prom = round(cont_mar21.cases.mean())
 
 
 
-###############################   Contagios por dia  
+###############################   Decesos por dia  
 
 endall1 = len(decesos)
 decesos1 = decesos.iloc[:,3:endall1].sum().T
@@ -193,6 +195,7 @@ decesos_mar21_prom = round(dec_mar21.cases.mean())
 
 
 
+
 ############################### contagios totales por estado
 
 onlyc = contagios.iloc[:,3:]
@@ -237,7 +240,9 @@ deceedo = pd.read_csv('0000proceso.csv')
 deceedos = deceedo.sort_values('total', ascending=True).tail(10)
 ####### W19.18022021 
 
+
 ############################### decesos (tasas) por estado
+
 deceedos1['tasa']=((deceedos1.total/deceedos1.poblacion)*100000).round(2)
 deceedos2= deceedos1.sort_values('tasa', ascending=True).tail(10)
 deceedos2.to_csv('0000proceso.csv')
@@ -249,13 +254,13 @@ deceedosg = deceedos.stb.freq(['Nom_Ent'],value='total', thresh=60, other_label=
 
 
 
+
 #############################################
 # G R A F I C A S 
 ############################################# Grafica1
 
 figaro = go.Figure()
 figaro.add_trace(go.Bar(x=contagios2['days'],y=contagios2['cases'],
-                #name='Contagios confirmados COVID-19',
                 marker_color='indianred'  # cambiar nuemeritos de rgb
                 ))
 figaro.update_layout(
@@ -279,7 +284,6 @@ figaro.update_layout(
 
 figaro2 = go.Figure()
 figaro2.add_trace(go.Bar(x=decesos2['days'],y=decesos2['cases'],
-                #name='Contagios confirmados COVID-19',
                 marker_color='slategray'  # cambiar nuemeritos de rgb
                ))
 figaro2.update_layout(
@@ -463,7 +467,7 @@ g10edosdt.update_layout(
 ############################### Gráfica PIE de Contagios por estado
 
 piec = px.pie(contaedog, values='total', names='Nom_Ent',
-             color_discrete_sequence=px.colors.sequential.Reds, hole=.4
+             color_discrete_sequence=px.colors.sequential.Reds, hole=.5
               ,
              #title='Distribución de contagios',
              )
@@ -478,9 +482,7 @@ piec.update_layout(paper_bgcolor='rgba(0,0,0,0)',
                   title_font_size = 12,
                   font_color="gray",
                   title_font_color="firebrick",
-                  #title_font_family = 'Monserrat ExtraBold' 
-                   )
-#ec.update.traces(hole=.5,)
+                  )
 
 
 ############################### Gráfica Pie de Deceso por estado
@@ -512,6 +514,9 @@ pied.update_layout(paper_bgcolor='rgba(0,0,0,0)',
 
 
 
+
+
+
 ####################################
 
 # A P P
@@ -521,15 +526,14 @@ pied.update_layout(paper_bgcolor='rgba(0,0,0,0)',
 ########### Define your variables
 mytitle=' '
 tabtitle='COVID-19 en México'
-#githublink='https://github.com/Aeelen-Miranda/exercises_pythoncitos/blob/master/app.py'
 sourceurl='https://datos.covid-19.conacyt.mx/'
 
 
-
 server = flask.Flask(__name__)
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY], server=server)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX], server=server)
 
 body = html.Div([
+    
        html.Hr(),
 
 # Title
@@ -542,12 +546,13 @@ body = html.Div([
                         })
                    ,]),
 
+    
 # Fecha de actualización
     
        dbc.Row(
            [dbc.Col(html.H6(d2 ),
                width={'size' : "auto",
-                      'offset' : 5,
+                      'offset' : 4,
             }), 
             ]),
     
@@ -555,6 +560,7 @@ body = html.Div([
 
     
 #################################### Franja CONTAGIOS    
+    
 #Contagios 
        # Suma total de contagios    
       dbc.Row(
@@ -591,10 +597,12 @@ body = html.Div([
 #################################### Franja DECESOS    
 #Decesos 
 
-       # Suma total de contagios    
+       # Suma total de Decesos    
        dbc.Row(
-           [dbc.Col(html.H4("Decesos"),
+           [
+            dbc.Col(html.H4("Decesos"),
                   width={'size' : "auto",'offset' : 1,'colors' : 'light'}),]),
+    
        dbc.Row(
            [
             dbc.Col(html.H2([str(f"{decesos_tot:,d}")]),
@@ -669,16 +677,16 @@ body = html.Div([
            ]),     
 
        dbc.Row([
-           dbc.Col(html.Div(dcc.Graph(figure=piec,
+           dbc.Col(dcc.Graph(figure=piec,
                                  style={"size":8,
                                         "offset": 0
-                                          }))),
+                                          })),
 
-           dbc.Col(html.Div(dcc.Graph(figure=pied,
+           dbc.Col(dcc.Graph(figure=pied,
                                  style={"size":3,
                                         "offset": 9, 
                                         
-                                          }))),
+                                          })),
            ]),
     
        html.Hr(),
@@ -689,10 +697,10 @@ body = html.Div([
            dbc.Col(dbc.CardImg(src="https://github.com/fdealbam/CamaraDiputados/blob/main/application/static/logocamara.jfif?raw=true"),
                         width=4, lg={'size': 1,  "offset": 3, }),
            
-           dbc.Col(html.H6(" S e c r e t a r í a    G e n e r a l," 
+           dbc.Col(html.H6(" S e c r e t a r í a   G e n e r a l," 
                            " Secretaría de Servicios Parlamentarios, "
                            " México, 2021 "),
-                  width={'size': 4, 'offset': 0}),
+                  width={'size': 3, 'offset': 0}),
                ], justify="start",),
 
 
