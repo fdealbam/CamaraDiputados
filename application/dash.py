@@ -14,7 +14,7 @@ import sidetable as stb
 import datetime
 from datetime import datetime, timedelta
 from datetime import date
-
+import flask
 
 yesterday = datetime.now() - timedelta(1)
 yea = datetime.strftime(yesterday, '%Y%m%d')
@@ -526,8 +526,8 @@ sourceurl='https://datos.covid-19.conacyt.mx/'
 
 
 
-
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY])
+server = flask.Flask(__name__)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY], server=server)
 
 body = html.Div([
        html.Hr(),
@@ -692,7 +692,7 @@ body = html.Div([
            dbc.Col(html.H6(" S e c r e t a r í a    G e n e r a l," 
                            " Secretaría de Servicios Parlamentarios, "
                            " México, 2021 "),
-                  width={'size': 1, 'offset': 0}),
+                  width={'size': 3, 'offset': 0}),
                ], justify="start",),
 
 
