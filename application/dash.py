@@ -401,6 +401,8 @@ g10edosct.update_layout(
         titlefont_family= 'Monserrat ExtraBold',
         ))
 
+
+
 ############################################################ 3 Decesos
 g10edosd = go.Figure()
 g10edosd.add_trace(go.Bar(x=deceedos['total'],y=contaedos['Nom_Ent'],
@@ -461,7 +463,8 @@ g10edosdt.update_layout(
 ############################### Gráfica PIE de Contagios por estado
 
 piec = px.pie(contaedog, values='total', names='Nom_Ent',
-             color_discrete_sequence=px.colors.sequential.Reds,
+             color_discrete_sequence=px.colors.sequential.Reds, hole=.4
+              ,
              #title='Distribución de contagios',
              )
 piec.update_layout(paper_bgcolor='rgba(0,0,0,0)',
@@ -477,12 +480,13 @@ piec.update_layout(paper_bgcolor='rgba(0,0,0,0)',
                   title_font_color="firebrick",
                   #title_font_family = 'Monserrat ExtraBold' 
                    )
+#ec.update.traces(hole=.5,)
 
 
 ############################### Gráfica Pie de Deceso por estado
 
 pied = px.pie(deceedosg, values='total', names='Nom_Ent',
-             color_discrete_sequence=px.colors.sequential.Greys,
+             color_discrete_sequence=px.colors.sequential.Greys, hole=.4,
              #title='      Decesos',
              #titlefont_size = 15,
              #font_family = 'Monserrat ExtraBold'
@@ -634,11 +638,11 @@ body = html.Div([
                                           }))),
 
            dbc.Col(html.Div(dcc.Graph(figure=g10edosd, 
-                                style={"size":6,
+                                style={"size":6
                                           }))),
 
            dbc.Col(html.Div(dcc.Graph(figure=g10edosdt,
-                                style={"size":9,
+                                style={"size":9
                                           }))),
            ]),
     
@@ -685,7 +689,7 @@ body = html.Div([
            dbc.Col(dbc.CardImg(src="https://github.com/fdealbam/CamaraDiputados/blob/main/application/static/logocamara.jfif?raw=true"),
                         width=4, lg={'size': 1,  "offset": 3, }),
            
-           dbc.Col(html.H6(" S e c r e t a r í a     G e n e r a l," 
+           dbc.Col(html.H6(" S e c r e t a r í a    G e n e r a l," 
                            " Secretaría de Servicios Parlamentarios, "
                            " México, 2021 "),
                   width={'size': 1, 'offset': 0}),
