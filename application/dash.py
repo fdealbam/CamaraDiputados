@@ -1,4 +1,3 @@
-
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -421,7 +420,6 @@ g10edosd.update_layout(
     plot_bgcolor='rgba(0,0,0,0)',
     xaxis_tickangle=-45,
     template = 'simple_white',
-   
     title='Decesos',
     uniformtext_minsize=10,
     uniformtext_mode='hide',
@@ -446,6 +444,7 @@ g10edosdt.add_trace(go.Bar(x=deceedos2a['tasa'],y=contaedos2a['Nom_Ent'],
 g10edosdt.update_layout(
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
+    uniformtext_mode='hide',
     xaxis_tickangle=-45,
     template = 'simple_white',
     title='Tasa de Decesos',
@@ -475,7 +474,6 @@ piec.update_layout(paper_bgcolor='rgba(0,0,0,0)',
                   plot_bgcolor='rgba(0,0,0,0)',
                   uniformtext_minsize=10,
                   uniformtext_mode='hide',
-                  #font_family= "Monserrat",
                   autosize=True,
                   width= 550,
                   height=550,
