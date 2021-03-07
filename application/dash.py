@@ -584,7 +584,8 @@ body = html.Div([
        dbc.Row(
            [
                dbc.Col(dbc.Table.from_dataframe(patabla7,
-                       striped=True),
+                       striped=True), 
+               width=11, md={"size":11, 'offset' : 0,},
                        
                       
           )]),
@@ -620,10 +621,9 @@ body = html.Div([
        dbc.Row(
            [
                dbc.Col(dbc.Table.from_dataframe(patabla7a, 
-                       #hover=True,
-                       #dark=True,
-                       striped=True,)
-                      )] ),
+                       striped=True,
+                      ), width=11, md={"size":11, 'offset' : 0,},
+           )]),
        html.Hr(),
        html.Hr(),
 
@@ -677,16 +677,16 @@ body = html.Div([
            ]),     
 
        dbc.Row([
-           dbc.Col(dcc.Graph(figure=piec,
-                                 style={"size":8,
+           dbc.Col(dcc.Graph(figure=piec),
+                                width=6,  md={"size":5,
                                         "offset": 0
-                                          })),
+                                          }),
 
-           dbc.Col(dcc.Graph(figure=pied,
-                                 style={"size":3,
-                                        "offset": 8, 
+           dbc.Col(dcc.Graph(figure=pied),
+                                width=5, md={"size":4,
+                                        "offset": 0, 
                                         
-                                          })),
+                                          }),
            ]),
     
        html.Hr(),
