@@ -530,7 +530,7 @@ sourceurl='https://datos.covid-19.conacyt.mx/'
 
 
 server = flask.Flask(__name__)
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX], server=server)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes. LUX], server=server)
 
 body = html.Div([
     
@@ -621,9 +621,11 @@ body = html.Div([
        # Tabla de decesos mensuales
        dbc.Row(
            [
-               dbc.Col(dbc.Table.from_dataframe(patabla7a,
-                                               striped=True)
-                      )]),
+               dbc.Col(dbc.Table.from_dataframe(patabla7a, 
+                       #hover=True,
+                       #dark=True,
+                       striped=True,)
+                      )] ),
        html.Hr(),
        html.Hr(),
 
@@ -684,7 +686,7 @@ body = html.Div([
 
            dbc.Col(dcc.Graph(figure=pied,
                                  style={"size":3,
-                                        "offset": 9, 
+                                        "offset": 8, 
                                         
                                           })),
            ]),
@@ -700,7 +702,7 @@ body = html.Div([
            dbc.Col(html.H6(" S e c r e t a r í a   G e n e r a l," 
                            " Secretaría de Servicios Parlamentarios, "
                            " México, 2021 "),
-                  width={'size': 3, 'offset': 0}),
+                  width={'size': 4, 'offset': 0}),
                ], justify="start",),
 
 
