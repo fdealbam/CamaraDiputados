@@ -876,7 +876,8 @@ body = html.Div([
              Output(component_id='my_bee_map', component_property='figure')],
             [Input(component_id='slct_year', component_property='value')]
         )
-        
+
+       
         def update_graph(option_slctd):
             print(option_slctd)
             print(type(option_slctd))
