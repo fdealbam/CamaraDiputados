@@ -910,7 +910,7 @@ def update_graph(option_slctd):
   
   
   
-])
+#])
 
 app.layout = html.Div([body])
 
