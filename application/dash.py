@@ -878,14 +878,15 @@ body = html.Div([
         )
 
        
-        def update_graph(option_slctd):
-            print(option_slctd)
-            print(type(option_slctd))
+def update_graph(option_slctd):
+    
+    print(option_slctd)
+    print(type(option_slctd))
         
-            container = "La semana que eligio el usuario es: {}".format(option_slctd)
+    container = "La semana que eligio el usuario es: {}".format(option_slctd)
         
         
-            semnalgraph =  px.choropleth_mapbox(concat2[(option_slctd)],
+    semnalgraph =  px.choropleth_mapbox(concat2[(option_slctd)],
                                    geojson=geo_df.geometry,
                                    locations=concat2.index,
                                    color= (option_slctd),
@@ -896,12 +897,12 @@ body = html.Div([
                                    opacity=1,
                                    #title = '<b>Contagios por entidad</b>',
                                    )
-            semnalgraph.update_layout(
+    semnalgraph.update_layout(
                 margin={"r":0,"t":0,"l":0,"b":0},
                 #autosize= "auto",
                 #size= 12
             )
-            return container, semnalgraph
+    return container, semnalgraph
         
   
   
