@@ -1,3 +1,4 @@
+
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -16,7 +17,7 @@ from datetime import datetime, timedelta
 from datetime import date
 import geopandas as gpd
 import flask
-
+import os
 yesterday = datetime.now() - timedelta(1)
 yea = datetime.strftime(yesterday, '%Y%m%d')
 
@@ -28,11 +29,12 @@ d2 = today.strftime("Fecha de actualización : %d de %B de %Y")
 
 
 
+
 ###############################
 # DATABASES
 ############################### Abre archivos
 
-base = pd.read_csv('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/mun_p1_cvegeo.csv', encoding='latin-1', usecols=['Nom_Ent','nom_mun','cve_ent_mun1','cve_ent_mun2'])
+base = pd.read_csv('https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/application/mun_p1_cvegeo.csv', encoding='latin-1', usecols=['Nom_Ent','nom_mun','cve_ent_mun1','cve_ent_mun2'])
 contagios = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Confirmados_%s.csv" %(yea))
 decesos = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Defunciones_%s.csv" %(yea))
 SS = ('https://datos.covid-19.conacyt.mx/')
@@ -47,9 +49,9 @@ aa.groupby("Nom_Ent").sum().to_csv("00.cvs")
 sem_edos= pd.read_csv("00.cvs")
 sem_edos
 
-
-
-
+ee = pd.read_csv("https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/application/Tabla%201.%20Confirmados%20mensuales.csv")
+ee.groupby("Nom_Ent").sum().to_csv("00.cvs")
+mes_edos= pd.read_csv("00.cvs")
 #- FILE JSON ------------------------------------------------------------------------------
 
 from urllib.request import urlopen
@@ -63,132 +65,27 @@ geo_df = gpd.GeoDataFrame.from_features(counties["features"])
 
 
 # Merge 
-concat0 = geo_df.merge(sem_edos, left_on= "name", right_on= "Nom_Ent", how= "right")
- 
-    
+concat0 = geo_df.merge(mes_edos, left_on= "name", right_on= "Nom_Ent", how= "right")
 # Selección de columnas 
 concat2 = concat0[
     ['geometry',
-     "cve_ent",
- "Nom_Ent",
- 'semana f', 
- 'semana g',
- 'semana 0',
- 'semana 1',
- 'semana 2',
- 'semana 3',
- 'semana 4',
- 'semana 5',
- 'semana 6',
- 'semana 7',
- 'semana 8',
- 'semana 9',
- 'semana 10',
- 'semana 11',
- 'semana 12',
- 'semana 13',
- 'semana 14',
- 'semana 15',
- 'semana 16',
- 'semana 17',
- 'semana 18',
- 'semana 19',
- 'semana 20',
- 'semana 21',
- 'semana 22',
- 'semana 23',
- 'semana 24',
- 'semana 25',
- 'semana 26',
- 'semana 27',
- 'semana 28',
- 'semana 29',
- 'semana 30',
- 'semana 31',
- 'semana 32',
- 'semana 33',
- 'semana 34',
- 'semana 35',
- 'semana 36',
- 'semana 37',
- 'semana 38',
- 'semana 39',
- 'semana 40',
- 'semana 41',
- 'semana 42',
- 'semana 43',
- 'semana 44',
- 'semana 45',
- 'semana 46',
- 'semana 47',
- 'semana 48',
- 'semana 49',
- 'semana 50',
- 'semana 51',
- 'semana 52',
- 'semana 53']]
+    'Nom_Ent',
+       'Unnamed: 0', 'cve_ent', 'poblacion', 'Total', 'febrero20', 'marzo20',
+       'abril20', 'mayo20', 'junio20', 'julio20', 'agosto20', 'septiembre20',
+       'octubre20', 'noviembre20', 'diciembre20', 'enero21', 'febrero21',
+       'marzo21']]
 
 
 ############################################## lista de semanas 
 
-listasems = [ 
- 'semana 0',  'semana f',  'semana g', 'semana 1',
- 'semana 2',
- 'semana 3',
- 'semana 4',
- 'semana 5',
- 'semana 6',
- 'semana 7',
- 'semana 8',
- 'semana 9',
- 'semana 10',
- 'semana 11',
- 'semana 12',
- 'semana 13',
- 'semana 14',
- 'semana 15',
- 'semana 16',
- 'semana 17',
- 'semana 18',
- 'semana 19',
- 'semana 20',
- 'semana 21',
- 'semana 22',
- 'semana 23',
- 'semana 24',
- 'semana 25',
- 'semana 26',
- 'semana 27',
- 'semana 28',
- 'semana 29',
- 'semana 30',
- 'semana 31',
- 'semana 32',
- 'semana 33',
- 'semana 34',
- 'semana 35',
- 'semana 36',
- 'semana 37',
- 'semana 38',
- 'semana 39',
- 'semana 40',
- 'semana 41',
- 'semana 42',
- 'semana 43',
- 'semana 44',
- 'semana 45',
- 'semana 46',
- 'semana 47',
- 'semana 48',
- 'semana 49',
- 'semana 50',
- 'semana 51',
- 'semana 52',
- 'semana 53', ]
+listameses = [ 'febrero20', 'marzo20',
+       'abril20', 'mayo20', 'junio20', 'julio20', 'agosto20', 'septiembre20',
+       'octubre20', 'noviembre20', 'diciembre20', 'enero21', 'febrero21',
+       'marzo21']
 
 
 #lista de las semanas 
-fnameDict = listasems
+fnameDict = listameses
 names = list(fnameDict)
 
 
@@ -735,7 +632,7 @@ body = html.Div([
            [
                dbc.Col(dbc.Table.from_dataframe(patabla7,
                        striped=True), 
-               width=11, sm={"size":11, 'offset' : 0,},
+               width=10, sm={"size":10, 'offset' : 0,},
                        
                       
           )]),
@@ -772,7 +669,7 @@ body = html.Div([
            [
                dbc.Col(dbc.Table.from_dataframe(patabla7a, 
                        striped=True,
-                      ), width=11, sm={"size":11, 'offset' : 0,},
+                      ), width=10, sm={"size":100000, 'offset' : 0,},
            )]),
        html.Hr(),
        html.Hr(),
@@ -842,31 +739,42 @@ body = html.Div([
        html.Hr(),
        html.Hr(),
 
-       dbc.Row([
+   
+   
+#insertar en app al final de aquí.... 
+    
+        html.H1(" Contagios ", style={'text-align': 'center'}),
+    dcc.Dropdown(
+        id="slct_year",
+        options=[{'label':name, 'value':name}
+                 for name in names],
+        value = list(fnameDict)[0],
+        #style={'display': 'inline-block','text-align': 'justify'}
+        style={'width': '70%', 'display': 'inline-block'},
+        ),
+       html.Div(id='output_container', children=[]),
+       html.Br(),
+        
+           dcc.Graph(id='my_bee_map', figure={},
+                      style={'width': '100%', 'display': 'inline-block',
+                            'align': 'center'}),
+    
+       html.Br(),
+       html.Br(),
+       html.Br(),
+       html.Br(),
+    
+        dbc.Row([
            
            dbc.Col(dbc.CardImg(src="https://github.com/fdealbam/CamaraDiputados/blob/main/application/static/logocamara.jfif?raw=true"),
                         width=4, lg={'size': 1,  "offset": 3, }),
-           
+            
            dbc.Col(html.H6(" S e c r e t a r í a   G e n e r a l," 
                            " Secretaría de Servicios Parlamentarios, "
                            " México, 2021 "),
                   width={'size': 3, 'offset': 0}),
                ], justify="start",),
 
-   
-#insertar en app al final de aquí.... 
-    
-       html.H1(" Casos Semanales", style={'text-align': 'left'}),
-           dcc.Dropdown(id="slct_year",
-                 options=[{'label':name, 'value':name} for name in names],
-                 value = list(fnameDict)[0],
-        style={'width': '60%', 'display': 'inline-block'}),
-       html.Div(id='output_container', children=[]),
-       html.Br(),
-        
-           dcc.Graph(id='my_bee_map', figure={},
-                      style={'width': '70%', 'display': 'inline-block',
-                            'align': 'center'})
         
             ])
         
@@ -884,25 +792,30 @@ def update_graph(option_slctd):
     print(option_slctd)
     print(type(option_slctd))
         
-    container = "La semana que eligio el usuario es: {}".format(option_slctd)
+    container = "El mes que eligio el usuario es: {}".format(option_slctd)
         
         
     semnalgraph =  px.choropleth_mapbox(concat2[(option_slctd)],
                                    geojson=geo_df.geometry,
                                    locations=concat2.index,
                                    color= (option_slctd),
-                                   range_color=[10, 1400],     
-                                   center={"lat": 19.34508941956005, "lon": -99.15325161549731},
-                                   mapbox_style="carto-darkmatter",
-                                   zoom= 3.5,
-                                   opacity=1,
+                                   range_color=[100, 1400],     
+                                   #center={"lat": 19.4978, "lon": -99.12691929},
+                                   center={"lat": 23.88234, "lon": -102.28259},
+                                   mapbox_style="carto-positron",
+                                   zoom= 4.5,
+                                   opacity=.6,
+                                   color_continuous_scale=px.colors.sequential.Oranges,
                                    #title = '<b>Contagios por entidad</b>',
                                    )
     semnalgraph.update_layout(
-                margin={"r":0,"t":0,"l":0,"b":0},
-                #autosize= "auto",
-                #size= 12
+        margin={"r":0,"t":0,"l":0,"b":0},
+        autosize=False,
+        width=1200,
+        height=700
+
             )
+    
     return container, semnalgraph
         
   
@@ -920,3 +833,8 @@ from settings import config
 
 if __name__ == "__main__":
     app.run_server()
+    
+    
+    
+    
+#https://plotly.com/python/builtin-colorscales/
