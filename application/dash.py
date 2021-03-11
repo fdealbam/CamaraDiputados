@@ -14,7 +14,7 @@ import sidetable as stb
 import datetime
 from datetime import datetime, timedelta
 from datetime import date
-import geopandas as gdp
+import geopandas as gpd
 import flask
 
 yesterday = datetime.now() - timedelta(1)
@@ -42,7 +42,7 @@ entidades  =  pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/mas
 
 
 
-aa = pd.read_csv("Tabla 2. Confirmados por semana.csv")
+aa = pd.read_csv("https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/application/Tabla%202.%20Confirmados%20por%20semana.csv")
 aa.groupby("Nom_Ent").sum().to_csv("00.cvs")
 sem_edos= pd.read_csv("00.cvs")
 sem_edos
