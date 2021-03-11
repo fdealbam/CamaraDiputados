@@ -871,7 +871,7 @@ body = html.Div([
         
         # -----------------------------------
         # Connect the Plotly graphs with Dash Components
-        @app.callback(
+@app.callback(
             [Output(component_id='output_container', component_property='children'),
              Output(component_id='my_bee_map', component_property='figure')],
             [Input(component_id='slct_year', component_property='value')]
