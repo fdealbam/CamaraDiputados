@@ -855,53 +855,53 @@ body = html.Div([
    
 #insertar en app al final de aquí.... 
     
-    html.H1(" Casos Semanales", style={'text-align': 'left'}),
-    dcc.Dropdown(id="slct_year",
+       html.H1(" Casos Semanales", style={'text-align': 'left'}),
+           dcc.Dropdown(id="slct_year",
                  options=[{'label':name, 'value':name} for name in names],
                  value = list(fnameDict)[0],
-    style={'width': '60%', 'display': 'inline-block'}),
-    html.Div(id='output_container', children=[]),
-    html.Br(),
-
-    dcc.Graph(id='my_bee_map', figure={},
-              style={'width': '70%', 'display': 'inline-block',
-                    'align': 'center'})
-
-    ])
-
-# -----------------------------------
-# Connect the Plotly graphs with Dash Components
-@app.callback(
-    [Output(component_id='output_container', component_property='children'),
-     Output(component_id='my_bee_map', component_property='figure')],
-    [Input(component_id='slct_year', component_property='value')]
-)
-
-def update_graph(option_slctd):
-    print(option_slctd)
-    print(type(option_slctd))
-
-    container = "La semana que eligio el usuario es: {}".format(option_slctd)
-
-
-    semnalgraph =  px.choropleth_mapbox(concat2[(option_slctd)],
-                           geojson=geo_df.geometry,
-                           locations=concat2.index,
-                           color= (option_slctd),
-                           range_color=[10, 1400],     
-                           center={"lat": 19.34508941956005, "lon": -99.15325161549731},
-                           mapbox_style="carto-darkmatter",
-                           zoom= 3.5,
-                           opacity=1,
-                           #title = '<b>Contagios por entidad</b>',
-                           )
-    semnalgraph.update_layout(
-        margin={"r":0,"t":0,"l":0,"b":0},
-        #autosize= "auto",
-        #size= 12
-    )
-    return container, semnalgraph
-
+        style={'width': '60%', 'display': 'inline-block'}),
+       html.Div(id='output_container', children=[]),
+       html.Br(),
+        
+           dcc.Graph(id='my_bee_map', figure={},
+                      style={'width': '70%', 'display': 'inline-block',
+                            'align': 'center'})
+        
+            ])
+        
+        # -----------------------------------
+        # Connect the Plotly graphs with Dash Components
+        @app.callback(
+            [Output(component_id='output_container', component_property='children'),
+             Output(component_id='my_bee_map', component_property='figure')],
+            [Input(component_id='slct_year', component_property='value')]
+        )
+        
+        def update_graph(option_slctd):
+            print(option_slctd)
+            print(type(option_slctd))
+        
+            container = "La semana que eligio el usuario es: {}".format(option_slctd)
+        
+        
+            semnalgraph =  px.choropleth_mapbox(concat2[(option_slctd)],
+                                   geojson=geo_df.geometry,
+                                   locations=concat2.index,
+                                   color= (option_slctd),
+                                   range_color=[10, 1400],     
+                                   center={"lat": 19.34508941956005, "lon": -99.15325161549731},
+                                   mapbox_style="carto-darkmatter",
+                                   zoom= 3.5,
+                                   opacity=1,
+                                   #title = '<b>Contagios por entidad</b>',
+                                   )
+            semnalgraph.update_layout(
+                margin={"r":0,"t":0,"l":0,"b":0},
+                #autosize= "auto",
+                #size= 12
+            )
+            return container, semnalgraph
+        
   
   
   
