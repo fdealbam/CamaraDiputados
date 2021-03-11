@@ -1,4 +1,3 @@
-
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -630,10 +629,9 @@ body = html.Div([
        # Tabla de contagios mensuales
        dbc.Row(
            [
-               dbc.Col(dbc.Table.from_dataframe(patabla7,
+               dbc.Col(dbc.Table.from_dataframe(patabla7, 
                        striped=True), 
-               width=10, sm={"size":10, 'offset' : 0,},
-                       
+               width=10, sm={'size':10, 'offset':0,},
                       
           )]),
     
@@ -668,9 +666,10 @@ body = html.Div([
        dbc.Row(
            [
                dbc.Col(dbc.Table.from_dataframe(patabla7a, 
-                       striped=True,
-                      ), width=10, sm={"size":100000, 'offset' : 0,},
-           )]),
+                       striped=True), 
+               width=10, sm={'size':10, 'offset':0,},
+          )]),
+    
        html.Hr(),
        html.Hr(),
 
