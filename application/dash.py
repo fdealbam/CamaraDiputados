@@ -14,6 +14,7 @@ import sidetable as stb
 import datetime
 from datetime import datetime, timedelta
 from datetime import date
+import geopandas as gdp
 import flask
 
 yesterday = datetime.now() - timedelta(1)
