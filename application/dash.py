@@ -41,6 +41,156 @@ entidades  =  pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/mas
 
 
 
+aa = pd.read_csv("Tabla 2. Confirmados por semana.csv")
+aa.groupby("Nom_Ent").sum().to_csv("00.cvs")
+sem_edos= pd.read_csv("00.cvs")
+sem_edos
+
+
+
+
+#- FILE JSON ------------------------------------------------------------------------------
+
+from urllib.request import urlopen
+import json
+with urlopen('https://raw.githubusercontent.com/Aeelen-Miranda/exercises_pythoncitos/master/mexico.json') as response:
+    counties = json.load(response)
+counties["features"][0]
+
+# Creacion de geodataframe
+geo_df = gpd.GeoDataFrame.from_features(counties["features"])
+
+
+# Merge 
+concat0 = geo_df.merge(sem_edos, left_on= "name", right_on= "Nom_Ent", how= "right")
+ 
+    
+# Selección de columnas 
+concat2 = concat0[
+    ['geometry',
+     "cve_ent",
+ "Nom_Ent",
+ 'semana f', 
+ 'semana g',
+ 'semana 0',
+ 'semana 1',
+ 'semana 2',
+ 'semana 3',
+ 'semana 4',
+ 'semana 5',
+ 'semana 6',
+ 'semana 7',
+ 'semana 8',
+ 'semana 9',
+ 'semana 10',
+ 'semana 11',
+ 'semana 12',
+ 'semana 13',
+ 'semana 14',
+ 'semana 15',
+ 'semana 16',
+ 'semana 17',
+ 'semana 18',
+ 'semana 19',
+ 'semana 20',
+ 'semana 21',
+ 'semana 22',
+ 'semana 23',
+ 'semana 24',
+ 'semana 25',
+ 'semana 26',
+ 'semana 27',
+ 'semana 28',
+ 'semana 29',
+ 'semana 30',
+ 'semana 31',
+ 'semana 32',
+ 'semana 33',
+ 'semana 34',
+ 'semana 35',
+ 'semana 36',
+ 'semana 37',
+ 'semana 38',
+ 'semana 39',
+ 'semana 40',
+ 'semana 41',
+ 'semana 42',
+ 'semana 43',
+ 'semana 44',
+ 'semana 45',
+ 'semana 46',
+ 'semana 47',
+ 'semana 48',
+ 'semana 49',
+ 'semana 50',
+ 'semana 51',
+ 'semana 52',
+ 'semana 53']]
+
+
+############################################## lista de semanas 
+
+listasems = [ 
+ 'semana 0',  'semana f',  'semana g', 'semana 1',
+ 'semana 2',
+ 'semana 3',
+ 'semana 4',
+ 'semana 5',
+ 'semana 6',
+ 'semana 7',
+ 'semana 8',
+ 'semana 9',
+ 'semana 10',
+ 'semana 11',
+ 'semana 12',
+ 'semana 13',
+ 'semana 14',
+ 'semana 15',
+ 'semana 16',
+ 'semana 17',
+ 'semana 18',
+ 'semana 19',
+ 'semana 20',
+ 'semana 21',
+ 'semana 22',
+ 'semana 23',
+ 'semana 24',
+ 'semana 25',
+ 'semana 26',
+ 'semana 27',
+ 'semana 28',
+ 'semana 29',
+ 'semana 30',
+ 'semana 31',
+ 'semana 32',
+ 'semana 33',
+ 'semana 34',
+ 'semana 35',
+ 'semana 36',
+ 'semana 37',
+ 'semana 38',
+ 'semana 39',
+ 'semana 40',
+ 'semana 41',
+ 'semana 42',
+ 'semana 43',
+ 'semana 44',
+ 'semana 45',
+ 'semana 46',
+ 'semana 47',
+ 'semana 48',
+ 'semana 49',
+ 'semana 50',
+ 'semana 51',
+ 'semana 52',
+ 'semana 53', ]
+
+
+#lista de las semanas 
+fnameDict = listasems
+names = list(fnameDict)
+
+
 
 ###############################
 # TRATAMIENTO 
@@ -57,7 +207,6 @@ contagios2 = pd.DataFrame(contagios1)
 # index decesos 
 contagios2['index'] = contagios2.index 
 contagios2.rename(columns = {0:'cases', 'index':'days'}, inplace = True)
-
 
 
 ############################### Total de contagios 
@@ -703,8 +852,62 @@ body = html.Div([
                   width={'size': 3, 'offset': 0}),
                ], justify="start",),
 
+   
+#insertar en app al final de aquí.... 
+    
+    html.H1(" Casos Semanales", style={'text-align': 'left'}),
+    dcc.Dropdown(id="slct_year",
+                 options=[{'label':name, 'value':name} for name in names],
+                 value = list(fnameDict)[0],
+    style={'width': '60%', 'display': 'inline-block'}),
+    html.Div(id='output_container', children=[]),
+    html.Br(),
+
+    dcc.Graph(id='my_bee_map', figure={},
+              style={'width': '70%', 'display': 'inline-block',
+                    'align': 'center'})
+
+    ])
+
+# -----------------------------------
+# Connect the Plotly graphs with Dash Components
+@app.callback(
+    [Output(component_id='output_container', component_property='children'),
+     Output(component_id='my_bee_map', component_property='figure')],
+    [Input(component_id='slct_year', component_property='value')]
+)
+
+def update_graph(option_slctd):
+    print(option_slctd)
+    print(type(option_slctd))
+
+    container = "La semana que eligio el usuario es: {}".format(option_slctd)
 
 
+    semnalgraph =  px.choropleth_mapbox(concat2[(option_slctd)],
+                           geojson=geo_df.geometry,
+                           locations=concat2.index,
+                           color= (option_slctd),
+                           range_color=[10, 1400],     
+                           center={"lat": 19.34508941956005, "lon": -99.15325161549731},
+                           mapbox_style="carto-darkmatter",
+                           zoom= 3.5,
+                           opacity=1,
+                           #title = '<b>Contagios por entidad</b>',
+                           )
+    semnalgraph.update_layout(
+        margin={"r":0,"t":0,"l":0,"b":0},
+        #autosize= "auto",
+        #size= 12
+    )
+    return container, semnalgraph
+
+  
+  
+  
+  
+  
+  
 ])
 
 app.layout = html.Div([body])
