@@ -21,7 +21,7 @@ yesterday = datetime.now() - timedelta(1)
 yea = datetime.strftime(yesterday, '%Y%m%d')
 
 today = date.today()
-d2 = today.strftime("Fecha de actualización : %d de %B de %Y")
+d2 = today.strftime("Fecha de actualización : %d-%m-%Y")
 
 
 
@@ -37,11 +37,12 @@ base = pd.read_csv('https://raw.githubusercontent.com/fdealbam/CamaraDiputados/m
 contagios = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Confirmados_%s.csv" %(yea))
 decesos = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Defunciones_%s.csv" %(yea))
 SS = ('https://datos.covid-19.conacyt.mx/')
-autores = ('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/Autores.docx')
+#autores = ('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/Autores.docx')
 entidades  =  pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv" )
 
-
-
+pasa= pd.read_csv('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/000_comorbilidades.csv')
+titulos=['cve_geo1','cve_ent', 'decesos_60_y_mas']
+muertos60_mas = pd.read_csv('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/muertes_60%2B.csv', names=titulos)
 
 aa = pd.read_csv("https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/application/Tabla%202.%20Confirmados%20por%20semana.csv")
 aa.groupby("Nom_Ent").sum().to_csv("00.cvs")
@@ -51,6 +52,10 @@ sem_edos
 ee = pd.read_csv("https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/application/Tabla%201.%20Confirmados%20mensuales.csv")
 ee.groupby("Nom_Ent").sum().to_csv("00.cvs")
 mes_edos= pd.read_csv("00.cvs")
+
+
+
+
 #- FILE JSON ------------------------------------------------------------------------------
 
 from urllib.request import urlopen
@@ -62,18 +67,26 @@ counties["features"][0]
 # Creacion de geodataframe
 geo_df = gpd.GeoDataFrame.from_features(counties["features"])
 
-
+geo_df.replace(['Coahuila',
+                'Distrito Federal',
+                'Michoacán',
+                'Veracruz'],
+               #por
+                 ['Coahuila de Zaragoza',
+                 'Ciudad de México',
+                 'Michoacán de Ocampo',
+                  'Veracruz de Ignacio de la Llave'],inplace=True)
 # Merge 
 concat0 = geo_df.merge(mes_edos, left_on= "name", right_on= "Nom_Ent", how= "right")
+
 # Selección de columnas 
 concat2 = concat0[
     ['geometry',
     'Nom_Ent',
-       'Unnamed: 0', 'cve_ent', 'poblacion', 'Total', 'febrero20', 'marzo20',
+       'cve_ent', 'poblacion', 'Total', 'febrero20', 'marzo20',
        'abril20', 'mayo20', 'junio20', 'julio20', 'agosto20', 'septiembre20',
        'octubre20', 'noviembre20', 'diciembre20', 'enero21', 'febrero21',
        'marzo21']]
-
 
 ############################################## lista de semanas 
 
@@ -82,10 +95,10 @@ listameses = [ 'febrero20', 'marzo20',
        'octubre20', 'noviembre20', 'diciembre20', 'enero21', 'febrero21',
        'marzo21']
 
-
 #lista de las semanas 
 fnameDict = listameses
 names = list(fnameDict)
+
 
 
 
@@ -297,7 +310,37 @@ deceedos2a = pd.read_csv('0000proceso.csv')
 deceedosg = deceedos.stb.freq(['Nom_Ent'],value='total', thresh=60, other_label="Resto del país")
 
 
+############################### Total  activos
 
+#  ACTIVOS CONFIRMADOS
+cols5=len(contagios.columns)
+actv=cols5-15
+contagios['act_conf']= contagios.iloc[:,actv:cols5].sum(axis=1)
+act_confirmados=contagios['act_conf'].sum()
+
+#  ACTIVOS DEFUNCIONES
+cols6=len(decesos.columns)
+actv1=cols6-15
+decesos['act_def']=decesos.iloc[:,actv1:cols6].sum(axis=1)
+act_defunciones=decesos['act_def'].sum()
+
+activos_tot= act_confirmados+act_defunciones
+
+
+############################### Suma y porcentaje de 60+
+
+muertos60_mas.drop('cve_geo1', 1, inplace=True)
+muertos60_mas = muertos60_mas.drop([0])
+muertos60_mas.decesos_60_y_mas=muertos60_mas.decesos_60_y_mas.astype(int)
+tot_60=muertos60_mas.decesos_60_y_mas.sum()
+tot_60_p=((tot_60*100)/decesos_tot).round(1)
+
+############################### Suma y porcentaje de 3 mayores comorbilidades
+
+pasa.drop('Unnamed: 0',1,inplace=True)
+deseases_tot=pasa.sum().sort_values(ascending=False).sum()
+deseases_3=pasa.sum().sort_values(ascending=False).head(3).sum()
+deseases_3_p=((deseases_3*100)/deseases_tot).round(2)
 
 
 #############################################
@@ -563,8 +606,7 @@ pied.update_layout(paper_bgcolor='rgba(0,0,0,0)',
 
 ####################################
 
-# A P P
-
+# A P 
 ####################################
 
 ########### Define your variables
@@ -579,16 +621,32 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes. LUX], server=server)
 body = html.Div([
     
        html.Hr(),
+       html.Br(),
+       html.Br(),
+    
+        dbc.Row(
+            [
+           
+            dbc.Col(dbc.CardImg(src="https://github.com/fdealbam/CamaraDiputados/blob/main/application/static/logocamara.jfif?raw=true"),
+                        width=0, lg={'size': 1,  "offset": 1, }),
+            
+#           dbc.Col(html.H6(" S e c r e t a r í a   G e n e r a l," 
+#                           " Secretaría de Servicios Parlamentarios, "
+#                           " México, 2021 "),
+#                  width={'size': 3, 'offset': 0}),
+#               ], justify="start",),
 
 # Title
-        dbc.Row(
-           [
-           dbc.Col(html.H1("COVID-19 en México"),
-                  width={'size' : 9,
-                         'offset' : 4, 
+        #dbc.Row(
+           #[
+            dbc.Col(html.H1("COVID-19 en México"),
+                  width={'size' : 7,
+                         'offset' : 3, 
                          'color' : 'danger'
-                        })
-                   ,]),
+                        }), 
+                
+
+            ],justify="start"),
 
     
 # Fecha de actualización
@@ -596,18 +654,29 @@ body = html.Div([
        dbc.Row(
            [dbc.Col(html.H6(d2 ),
                width={'size' : "auto",
-                      'offset' : 4,
+                      'offset' : 5,
             }), 
             ]),
     
        html.Hr(),
 
     
-#################################### Franja CONTAGIOS    
+#################################### Franja ACTIVOS
+#     dbc.Row(
+#           [dbc.Col(html.H4("Activos"),
+#                  width={'size' : "auto",'offset' : 1}),]),
+#     dbc.Row(
+#           [
+#            dbc.Col(html.H2([str(f"{activos_tot:,d}")]),
+#               width={'size' : "auto",'offset' : 1, 'colors' : 'danger'}), 
+#               
+#               ]),#
+
     
+#################################### Franja CONTAGIOS   
 #Contagios 
        # Suma total de contagios    
-      dbc.Row(
+     dbc.Row(
            [dbc.Col(html.H4("Contagios"),
                   width={'size' : "auto",'offset' : 1}),]),
      dbc.Row(
@@ -617,7 +686,7 @@ body = html.Div([
                ]),
            
        # Grafica de contagios    
-       dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=figaro, config= "autosize")))]),
+       dbc.Row([dbc.Col(dcc.Graph(figure=figaro, config= "autosize"))]),
        
        dbc.Row(
            [
@@ -631,9 +700,10 @@ body = html.Div([
            [
                dbc.Col(dbc.Table.from_dataframe(patabla7, 
                        striped=True), 
-               width=10, sm={'size':10, 'offset':0,},
+                      width={'size' : 10,'offset' : 0,}), 
+#               width=10, sm={'size':auto, 'offset':1,},
                       
-          )]),
+          ]),
     
        html.Hr(), 
 
@@ -653,22 +723,37 @@ body = html.Div([
                width={'size' : "auto",'offset' : 1,}), 
                ]),
 
+     #################################### Franja 60+
+
+     dbc.Row(
+           [dbc.Col(html.H5("Con más de 60 años:"),
+                  width={'size' : "auto",'offset' : 1}),]),
+     dbc.Row(
+           [
+            dbc.Col(html.H3(#[str(f"{tot_60:,d}"), 
+                             [str(tot_60_p), "%"]),
+               width={'size' : "auto",'offset' : 1, 'colors' : 'danger'}), 
+               ]),
+
+ 
+        
        # Grafica de decesos    
-       dbc.Row([dbc.Col(html.Div(dcc.Graph(figure=figaro2, config= "autosize")))]),
+       dbc.Row([dbc.Col(dcc.Graph(figure=figaro2, config= "autosize"))]),
+
        dbc.Row(
            [
                dbc.Col(html.H5("Decesos acumulados por mes"),
                       width={'size' : "auto",'offset' : 1,}), 
            ]
            ),
-
        # Tabla de decesos mensuales
        dbc.Row(
            [
                dbc.Col(dbc.Table.from_dataframe(patabla7a, 
                        striped=True), 
-               width=10, sm={'size':10, 'offset':0,},
-          )]),
+                      width={'size' : 10,'offset' : 0,}), 
+           #    width=10, sm={'size':10, 'offset':0,},
+          ]),
     
        html.Hr(),
        html.Hr(),
@@ -742,15 +827,22 @@ body = html.Div([
    
 #insertar en app al final de aquí.... 
     
-        html.H1(" Contagios ", style={'text-align': 'center'}),
-    dcc.Dropdown(
-        id="slct_year",
-        options=[{'label':name, 'value':name}
+           dbc.Col(html.H1("Acumulados mensuales por entidad"), 
+                width={'size' : "auto",'offset' : 1 }),
+                #style={'text-align': 'left'}
+    
+    
+           dbc.Col(dcc.Dropdown(
+           id="slct_year",
+           options=[{'label':name, 'value':name}
                  for name in names],
-        value = list(fnameDict)[0],
-        #style={'display': 'inline-block','text-align': 'justify'}
-        style={'width': '70%', 'display': 'inline-block'},
-        ),
+           value = list(fnameDict)[0]),
+                width={'size' : 6,'offset' : 1 },
+                  style={'text-size': 28}),
+
+
+        #style={'width': '70%', 'display': 'inline-block'},
+        #),
        html.Div(id='output_container', children=[]),
        html.Br(),
         
@@ -773,25 +865,24 @@ body = html.Div([
                            " México, 2021 "),
                   width={'size': 3, 'offset': 0}),
                ], justify="start",),
-
         
             ])
         
         # -----------------------------------
         # Connect the Plotly graphs with Dash Components
 @app.callback(
-            [Output(component_id='output_container', component_property='children'),
-             Output(component_id='my_bee_map', component_property='figure')],
-            [Input(component_id='slct_year', component_property='value')]
-        )
-
-       
+    [Output(component_id='output_container', component_property='children'),
+    Output(component_id='my_bee_map', component_property='figure')],
+    [Input(component_id='slct_year', component_property='value')]
+    )
+     
+   
 def update_graph(option_slctd):
     
     print(option_slctd)
     print(type(option_slctd))
         
-    container = "El mes que eligio el usuario es: {}".format(option_slctd)
+    container = "Mes seleccionado: {}".format(option_slctd)
         
         
     semnalgraph =  px.choropleth_mapbox(concat2[(option_slctd)],
@@ -799,20 +890,21 @@ def update_graph(option_slctd):
                                    locations=concat2.index,
                                    color= (option_slctd),
                                    range_color=[100, 1400],     
-                                   #center={"lat": 19.4978, "lon": -99.12691929},
                                    center={"lat": 23.88234, "lon": -102.28259},
                                    mapbox_style="carto-positron",
                                    zoom= 4.5,
                                    opacity=.6,
                                    color_continuous_scale=px.colors.sequential.Oranges,
-                                   #title = '<b>Contagios por entidad</b>',
-                                   )
+      
+                                       )     
+
+    
     semnalgraph.update_layout(
         margin={"r":0,"t":0,"l":0,"b":0},
         autosize=False,
         width=1200,
-        height=700
-
+        height=700,
+        showlegend = False
             )
     
     return container, semnalgraph
