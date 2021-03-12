@@ -1,7 +1,5 @@
 import dash
 import dash_bootstrap_components as dbc
-import dash
-import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import pandas as pd
@@ -679,7 +677,7 @@ body = html.Div([
 #Contagios 
        # Suma total de contagios    
      dbc.Row(
-           [dbc.Col(html.H4("Contagios"),
+           [dbc.Col(html.H3("Contagios"),
                   width={'size' : "auto",'offset' : 1}),]),
      dbc.Row(
            [
@@ -716,7 +714,7 @@ body = html.Div([
        # Suma total de Decesos    
        dbc.Row(
            [
-            dbc.Col(html.H4("Decesos"),
+            dbc.Col(html.H3("Decesos"),
                   width={'size' : "auto",'offset' : 1,'colors' : 'light'}),]),
     
        dbc.Row(
@@ -732,7 +730,7 @@ body = html.Div([
                   width={'size' : "auto",'offset' : 1}),]),
      dbc.Row(
            [
-            dbc.Col(html.H3(#[str(f"{tot_60:,d}"), 
+            dbc.Col(html.H5(#[str(f"{tot_60:,d}"), 
                              [str(tot_60_p), "%"]),
                width={'size' : "auto",'offset' : 1, 'colors' : 'danger'}), 
                ]),
@@ -891,7 +889,7 @@ def update_graph(option_slctd):
                                    geojson=geo_df.geometry,
                                    locations=concat2.index,
                                    color= (option_slctd),
-                                   range_color=[100, 1400],     
+                                   range_color=[100, 1500],     
                                    center={"lat": 23.88234, "lon": -102.28259},
                                    mapbox_style="carto-positron",
                                    zoom= 4.5,
