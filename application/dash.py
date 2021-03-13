@@ -35,6 +35,7 @@ d2 = today.strftime("Fecha de actualización : %d-%m-%Y")
 
 base = pd.read_csv('https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/application/mun_p1_cvegeo.csv', encoding='latin-1', usecols=['Nom_Ent','nom_mun','cve_ent_mun1','cve_ent_mun2'])
 contagios = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Confirmados_%s.csv" %(yea))
+#decesos= pd.read_csv("https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/Casos_Diarios_Municipio_Defunciones_20210312.csv")
 decesos = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Defunciones_%s.csv" %(yea))
 SS = ('https://datos.covid-19.conacyt.mx/')
 #autores = ('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/Autores.docx')
@@ -185,8 +186,8 @@ contagios_mar21_prom = round(cont_mar21.cases.mean())
 
 ###############################   Decesos por dia  
 
-endall1 = len(decesos)
-decesos1 = decesos.iloc[:,3:endall1].sum().T
+#endall1 = len(decesos)
+decesos1 = decesos.iloc[:,3:388].sum().T
 decesos2 = pd.DataFrame(decesos1)
 decesos2['index'] = decesos2.index 
 decesos2.rename(columns = {0:'cases', 'index':'days'}, inplace = True)
@@ -341,6 +342,10 @@ pasa.drop('Unnamed: 0',1,inplace=True)
 deseases_tot=pasa.sum().sort_values(ascending=False).sum()
 deseases_3=pasa.sum().sort_values(ascending=False).head(3).sum()
 deseases_3_p=((deseases_3*100)/deseases_tot).round(2)
+
+
+
+
 
 
 #############################################
@@ -627,8 +632,8 @@ body = html.Div([
         dbc.Row(
             [
            
-            dbc.Col(dbc.CardImg(src="https://github.com/fdealbam/CamaraDiputados/blob/main/application/static/logocamara.jfif?raw=true"),
-                        width=0, lg={'size': 1,  "offset": 1, }),
+           dbc.Col(dbc.CardImg(src="https://github.com/fdealbam/CamaraDiputados/blob/main/application/static/logocamara.jfif?raw=true"),
+                        width=2, lg={'size': 1,  "offset": 1, }),
             
 #           dbc.Col(html.H6(" S e c r e t a r í a   G e n e r a l," 
 #                           " Secretaría de Servicios Parlamentarios, "
