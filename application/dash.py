@@ -46,13 +46,13 @@ titulos=['cve_geo1','cve_ent', 'decesos_60_y_mas']
 muertos60_mas = pd.read_csv('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/muertes_60%2B.csv', names=titulos)
 
 aa = pd.read_csv("https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/application/Tabla%202.%20Confirmados%20por%20semana.csv")
-aa.groupby("Nom_Ent").sum().to_csv("00.cvs")
-sem_edos= pd.read_csv("00.cvs")
+aa.groupby("Nom_Ent").sum().to_csv("00.csv")
+sem_edos= pd.read_csv("00.csv")
 sem_edos
 
 ee = pd.read_csv("https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/application/Tabla%201.%20Confirmados%20mensuales.csv")
-ee.groupby("Nom_Ent").sum().to_csv("00.cvs")
-mes_edos= pd.read_csv("00.cvs")
+ee.groupby("Nom_Ent").sum().to_csv("00.csv")
+mes_edos= pd.read_csv("00.csv")
 
 
 
@@ -366,12 +366,22 @@ figaro.update_layout(
     yaxis=dict(
         title='Decesos diarios',
         titlefont_size=14,
-        tickfont_size=12,
-        titlefont_family= "Monserrat"),
+        tickfont_size=12),
+    font_family= "Rockwell")
+figaro.add_shape( # add a horizontal "target" line
+    type="line", line_color="salmon", line_width=3, opacity=1, line_dash="dot",
+    x0=0, x1=1, xref="paper", y0=4500, y1=4500, yref="y"
+)
+
+figaro.add_annotation(x=20000, y="11-01-2021",
+           text="Text annotation without arrow",
+            showarrow=False,
+            yshift=10)
+
     #autosize=False,
     #width=1000,
     #height=400
-    )
+    
 
 ############################################ Grafica 2
 
@@ -880,8 +890,6 @@ body = html.Div([
     Output(component_id='my_bee_map', component_property='figure')],
     [Input(component_id='slct_year', component_property='value')]
     )
-     
-   
 def update_graph(option_slctd):
     
     print(option_slctd)
