@@ -38,7 +38,7 @@ contagios = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos
 #decesos= pd.read_csv("https://raw.githubusercontent.com/fdealbam/CamaraDiputados/main/Casos_Diarios_Municipio_Defunciones_20210312.csv")
 decesos = pd.read_csv("https://datos.covid-19.conacyt.mx/Downloads/Files/Casos_Diarios_Municipio_Defunciones_%s.csv" %(yea))
 SS = ('https://datos.covid-19.conacyt.mx/')
-#autores = ('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/Autores.docx')
+autores = ('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/Autores.docx')
 entidades  =  pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv" )
 
 pasa= pd.read_csv('https://raw.githubusercontent.com/winik-pg/exercises_pythoncitos/master/000_comorbilidades.csv')
@@ -182,20 +182,27 @@ contagios_ene21_prom = round(cont_ene21.cases.mean())
 contagios_feb21_prom = round(cont_feb21.cases.mean())
 contagios_mar21_prom = round(cont_mar21.cases.mean())
 
+##############################
+# TRATAMIENTO 
+############################### Contagios  por día
 
+endall = len(decesos)
 
-###############################   Decesos por dia  
+#Select and sum all columns data
+decesos1 = contagios.iloc[:,3:endall].sum()
 
-#endall1 = len(decesos)
-decesos1 = decesos.iloc[:,3:388].sum().T
+# Make a DataFrame
 decesos2 = pd.DataFrame(decesos1)
+
+# index decesos 
 decesos2['index'] = decesos2.index 
 decesos2.rename(columns = {0:'cases', 'index':'days'}, inplace = True)
 
 
-############################### Total de decesos 
-decesos_tot = decesos2.cases.sum()
+############################### Total de contagios 
+decesostotal = decesos2.cases.sum()
 ###############################
+
 
 
 format = '%d-%m-%Y'
@@ -368,16 +375,16 @@ figaro.update_layout(
         titlefont_size=14,
         tickfont_size=12),
     font_family= "Rockwell")
-figaro.add_shape( # add a horizontal "target" line
-    type="line", line_color="salmon", line_width=3, opacity=1, line_dash="dot",
-    x0=0, x1=1, xref="paper", y0=4500, y1=4500, yref="y"
-)
-
-figaro.add_annotation(x=20000, y="11-01-2021",
-           text="Text annotation without arrow",
-            showarrow=False,
-            yshift=10)
-
+#figaro.add_shape( # add a horizontal "target" line
+#    type="line", line_color="salmon", line_width=3, opacity=1, line_dash="dot",
+#    x0=0, x1=1, xref="paper", y0=4500, y1=4500, yref="y"
+#)
+#
+#figaro.add_annotation(x=20000, y="11-01-2021",
+#           text="Text annotation without arrow",
+#            showarrow=False,
+#            yshift=10)
+#
     #autosize=False,
     #width=1000,
     #height=400
@@ -418,10 +425,10 @@ patabla6 = {
             'Ago20'     : [str(f"{contagios_ago20:,d}")],#, decesos_ago20],
             'Sept20'    : [str(f"{contagios_sep20:,d}")],#, decesos_sep20],
             'Oct20'     : [str(f"{contagios_oct20:,d}")],#, decesos_oct20],
-            'Nov20' : [str(f"{contagios_nov20:,d}")],#, decesos_nov20],
-            'Dic20' : [str(f"{contagios_dic20:,d}")],#, decesos_dic20],
+            'Nov20'     : [str(f"{contagios_nov20:,d}")],#, decesos_nov20],
+            'Dic20'     : [str(f"{contagios_dic20:,d}")],#, decesos_dic20],
             'Ene21'     : [str(f"{contagios_ene21:,d}")],#, decesos_ene21],
-            'Feb21'   : [str(f"{contagios_feb21:,d}")],#, decesos_feb21],
+            'Feb21'     : [str(f"{contagios_feb21:,d}")],#, decesos_feb21],
             'Mar21'     : [str(f"{contagios_mar21:,d}")],#, decesos_feb21],
 
                             }
