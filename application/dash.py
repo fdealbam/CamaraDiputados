@@ -200,7 +200,7 @@ decesos2.rename(columns = {0:'cases', 'index':'days'}, inplace = True)
 
 
 ############################### Total de contagios 
-decesostotal = decesos2.cases.sum()
+decesostot = decesos2.cases.sum()
 ###############################
 
 
