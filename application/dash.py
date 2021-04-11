@@ -887,6 +887,14 @@ body = html.Div([
                            " México, 2021 "),
                   width={'size': 3, 'offset': 0}),
                ], justify="start",),
+      dbc.Row([    
+           dbc.Col(html.H5([dbc.Badge("Equipo responsable", 
+                          href="https://raw.githubusercontent.com/fdealbam/feminicidios/main/Autores.pdf",
+                          #color="light",
+                          #className="ml-1")
+                                     )]),
+                  width={'size': 3,  "offset": 4}),
+                       ], justify="start",),
         
             ])
         
