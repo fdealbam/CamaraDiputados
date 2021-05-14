@@ -87,14 +87,18 @@ concat2 = concat0[
        'cve_ent', 'poblacion', 'Total', 'febrero20', 'marzo20',
        'abril20', 'mayo20', 'junio20', 'julio20', 'agosto20', 'septiembre20',
        'octubre20', 'noviembre20', 'diciembre20', 'enero21', 'febrero21',
-       'marzo21']]
+       'marzo21','abril21', 'mayo21', #'junio20', 'julio20', 'agosto20', 'septiembre20',
+       #'octubre20', 'noviembre20', 'diciembre20',
+    ]]
 
 ############################################## lista de semanas 
 
 listameses = [ 'febrero20', 'marzo20',
        'abril20', 'mayo20', 'junio20', 'julio20', 'agosto20', 'septiembre20',
        'octubre20', 'noviembre20', 'diciembre20', 'enero21', 'febrero21',
-       'marzo21']
+       'marzo21','abril21', 'mayo21', #'junio20', 'julio20', 'agosto20', 'septiembre20',
+       #'octubre20', 'noviembre20', 'diciembre20',
+    ]
 
 #lista de las semanas 
 fnameDict = listameses
@@ -146,7 +150,15 @@ cont_dic20 = contagios2[(contagios2.days.dt.year == 2020 ) & (contagios2.days.dt
 cont_ene21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 1)]
 cont_feb21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 2)]
 cont_mar21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 3)]
-
+cont_abr21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 4)]
+cont_may21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 5)]
+#cont_jun21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 6)]
+#cont_jul21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 7)]
+#cont_ago21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 8)]
+#cont_sep21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 9)]
+#cont_oct21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 10)]
+#cont_nov21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 11)]
+#cont_dic21 = contagios2[(contagios2.days.dt.year == 2021 ) & (contagios2.days.dt.month == 12)]
 
 # Summarize by months 
 contagios_feb20 = cont_feb20.cases.sum()
@@ -163,6 +175,15 @@ contagios_dic20 = cont_dic20.cases.sum()
 contagios_ene21 = cont_ene21.cases.sum()
 contagios_feb21 = cont_feb21.cases.sum()
 contagios_mar21 = cont_mar21.cases.sum()
+contagios_abr21 = cont_abr21.cases.sum()
+contagios_may21 = cont_may21.cases.sum()
+#contagios_jun21 = cont_jun21.cases.sum()
+#contagios_jul21 = cont_jul21.cases.sum()
+#contagios_ago21 = cont_ago21.cases.sum()
+#contagios_sep21 = cont_sep21.cases.sum()
+#contagios_oct21 = cont_oct21.cases.sum()
+#contagios_nov21 = cont_nov21.cases.sum()
+#contagios_dic21 = cont_dic21.cases.sum()
 
 
 
@@ -181,6 +202,15 @@ contagios_dic20_prom = round(cont_dic20.cases.mean())
 contagios_ene21_prom = round(cont_ene21.cases.mean())
 contagios_feb21_prom = round(cont_feb21.cases.mean())
 contagios_mar21_prom = round(cont_mar21.cases.mean())
+contagios_abr21_prom = round(cont_abr21.cases.mean())
+contagios_may21_prom = round(cont_may21.cases.mean())
+contagios_jun21_prom = round(cont_jun21.cases.mean())
+contagios_jul21_prom = round(cont_jul21.cases.mean())
+contagios_ago21_prom = round(cont_ago21.cases.mean())
+contagios_sep21_prom = round(cont_sep21.cases.mean())
+contagios_oct21_prom = round(cont_oct21.cases.mean())
+contagios_nov21_prom = round(cont_nov21.cases.mean())
+contagios_dic21_prom = round(cont_dic21.cases.mean())
 
 ##############################
 # TRATAMIENTO 
@@ -223,7 +253,15 @@ dec_dic20 = decesos2[(decesos2.days.dt.year == 2020 ) & (decesos2.days.dt.month 
 dec_ene21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 1)]
 dec_feb21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 2)]
 dec_mar21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 3)]
-
+dec_abr21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 4)]
+dec_may21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 5)]
+#dec_jun21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 6)]
+#dec_jul21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 7)]
+#dec_ago21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 8)]
+#dec_sep21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 9)]
+#dec_oct21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 10)]
+#dec_nov21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 11)]
+#dec_dic21 = decesos2[(decesos2.days.dt.year == 2021 ) & (decesos2.days.dt.month == 12)]
 
 
 #sum
@@ -241,6 +279,15 @@ decesos_dic20 = dec_dic20.cases.sum()
 decesos_ene21 = dec_ene21.cases.sum()
 decesos_feb21 = dec_feb21.cases.sum()
 decesos_mar21 = dec_mar21.cases.sum()
+decesos_abr21 = dec_abr21.cases.sum()
+decesos_may21 = dec_may21.cases.sum()
+#decesos_jun21 = dec_jun21.cases.sum()
+#decesos_jul21 = dec_jul21.cases.sum()
+#decesos_ago21 = dec_ago21.cases.sum()
+#decesos_sep21 = dec_sep21.cases.sum()
+#decesos_oct21 = dec_oct21.cases.sum()
+#decesos_nov21 = dec_nov21.cases.sum()
+#decesos_dic21 = dec_dic21.cases.sum()
 
 
 #means
@@ -258,7 +305,15 @@ decesos_dic20_prom = round(dec_dic20.cases.mean())
 decesos_ene21_prom = round(dec_ene21.cases.mean())
 decesos_feb21_prom = round(dec_feb21.cases.mean())
 decesos_mar21_prom = round(dec_mar21.cases.mean())
-
+decesos_abr21_prom = round(dec_abr21.cases.mean())
+decesos_may21_prom = round(dec_may21.cases.mean())
+#decesos_jun21_prom = round(dec_jun21.cases.mean())
+#decesos_jul21_prom = round(dec_jul21.cases.mean())
+#decesos_ago21_prom = round(dec_ago21.cases.mean())
+#decesos_sep21_prom = round(dec_sep21.cases.mean())
+#decesos_oct21_prom = round(dec_oct21.cases.mean())
+#decesos_nov21_prom = round(dec_nov21.cases.mean())
+#decesos_dic21_prom = round(dec_dic21.cases.mean())
 
 
 
@@ -430,6 +485,15 @@ patabla6 = {
             'Ene21'     : [str(f"{contagios_ene21:,d}")],#, decesos_ene21],
             'Feb21'     : [str(f"{contagios_feb21:,d}")],#, decesos_feb21],
             'Mar21'     : [str(f"{contagios_mar21:,d}")],#, decesos_feb21],
+            'Abr21'     : [str(f"{contagios_abr21:,d}")],#, decesos_abr20],
+            'May21'     : [str(f"{contagios_may21:,d}")],#, decesos_may20],
+           # 'Jun21'     : [str(f"{contagios_jun21:,d}")],#, decesos_jun20],
+           # 'Jul21'     : [str(f"{contagios_jul21:,d}")],#, decesos_jul20],
+           # 'Ago21'     : [str(f"{contagios_ago21:,d}")],#, decesos_ago20],
+           # 'Sept21'    : [str(f"{contagios_sep21:,d}")],#, decesos_sep20],
+           # 'Oct21'     : [str(f"{contagios_oct21:,d}")],#, decesos_oct20],
+           # 'Nov21'     : [str(f"{contagios_nov21:,d}")],#, decesos_nov20],
+           # 'Dic21'     : [str(f"{contagios_dic21:,d}")],#, decesos_dic20],
 
                             }
 
@@ -437,7 +501,9 @@ patabla6 = {
 patabla7 = pd.DataFrame (patabla6, columns = [
                                               'Feb20','Mar20','Abr20','May20','Jun20',
     'Jul20','Ago20','Sept20','Oct20','Nov20','Dic20',
-                                              'Ene21','Feb21', 'Mar21'])
+    'Ene21','Feb21', 'Mar21','Abr21','May21',#'Jun21',
+   # 'Jul21','Ago21','Sept21','Oct21','Nov21','Dic21',
+])
 
 ################################################################Cintillo mensual decesos
 patabla6a = {
@@ -455,16 +521,24 @@ patabla6a = {
             'Ene21'   : [str(f"{decesos_ene21:,d}")],#, decesos_ene21],
             'Feb21'   : [str(f"{decesos_feb21:,d}")],#, decesos_feb21],
             'Mar21'   : [str(f"{decesos_mar21:,d}")],#, decesos_mar21],
+            'Abr21'   : [str(f"{decesos_abr21:,d}")],#, decesos_abr20],
+            'May21'   : [str(f"{decesos_may21:,d}")],#, decesos_may20],
+           # 'Jun21'   : [str(f"{decesos_jun21:,d}")],#, decesos_jun20],
+           # 'Jul21'   : [str(f"{decesos_jul21:,d}")],#, decesos_jul20],
+           # 'Ago21'   : [str(f"{decesos_ago21:,d}")],#, decesos_ago20],
+           # 'Sept21'  : [str(f"{decesos_sep21:,d}")],#, decesos_sep20],
+           # 'Oct21'   : [str(f"{decesos_oct21:,d}")],#, decesos_oct20],
+           # 'Nov21'   : [str(f"{decesos_nov21:,d}")],#, decesos_nov20],
+           # 'Dic21'   : [str(f"{decesos_dic21:,d}")],#, decesos_dic20],
 
                             }
 
 patabla7a = pd.DataFrame (patabla6a, columns = [
                                               'Feb20','Mar20','Abr20','May20','Jun20',
     'Jul20','Ago20','Sept20','Oct20','Nov20','Dic20',
-                                              'Ene21','Feb21', 'Mar21'])
-
-
-
+   'Ene21','Feb21', 'Mar21','Abr21','May21',#'Jun21',
+   # 'Jul21','Ago21','Sept21','Oct21','Nov21','Dic21',
+])
 
 ########################################################### Graficas barras
 # 1 Contagios
