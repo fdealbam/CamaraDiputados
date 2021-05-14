@@ -507,22 +507,22 @@ patabla7 = pd.DataFrame (patabla6, columns = [
 
 ################################################################Cintillo mensual decesos
 patabla6a = {
-            'Feb20'   : [str(f"{decesos_feb20:,d}")],#, decesos_feb20],
-            'Mar20'   : [str(f"{decesos_mar20:,d}")],#, decesos_mar20],
-            'Abr20'   : [str(f"{decesos_abr20:,d}")],#, decesos_abr20],
-            'May20'   : [str(f"{decesos_may20:,d}")],#, decesos_may20],
-            'Jun20'   : [str(f"{decesos_jun20:,d}")],#, decesos_jun20],
-            'Jul20'   : [str(f"{decesos_jul20:,d}")],#, decesos_jul20],
-            'Ago20'   : [str(f"{decesos_ago20:,d}")],#, decesos_ago20],
-            'Sept20'  : [str(f"{decesos_sep20:,d}")],#, decesos_sep20],
-            'Oct20'   : [str(f"{decesos_oct20:,d}")],#, decesos_oct20],
-            'Nov20'   : [str(f"{decesos_nov20:,d}")],#, decesos_nov20],
-            'Dic20'   : [str(f"{decesos_dic20:,d}")],#, decesos_dic20],
-            'Ene21'   : [str(f"{decesos_ene21:,d}")],#, decesos_ene21],
-            'Feb21'   : [str(f"{decesos_feb21:,d}")],#, decesos_feb21],
-            'Mar21'   : [str(f"{decesos_mar21:,d}")],#, decesos_mar21],
-            'Abr21'   : [str(f"{decesos_abr21:,d}")],#, decesos_abr20],
-            'May21'   : [str(f"{decesos_may21:,d}")],#, decesos_may20],
+            'd_Feb20'   : [str(f"{decesos_feb20:,d}")],#, decesos_feb20],
+            'd_Mar20'   : [str(f"{decesos_mar20:,d}")],#, decesos_mar20],
+            'd_Abr20'   : [str(f"{decesos_abr20:,d}")],#, decesos_abr20],
+            'd_May20'   : [str(f"{decesos_may20:,d}")],#, decesos_may20],
+            'd_Jun20'   : [str(f"{decesos_jun20:,d}")],#, decesos_jun20],
+            'd_Jul20'   : [str(f"{decesos_jul20:,d}")],#, decesos_jul20],
+            'd_Ago20'   : [str(f"{decesos_ago20:,d}")],#, decesos_ago20],
+            'd_Sept20'  : [str(f"{decesos_sep20:,d}")],#, decesos_sep20],
+            'd_Oct20'   : [str(f"{decesos_oct20:,d}")],#, decesos_oct20],
+            'd_Nov20'   : [str(f"{decesos_nov20:,d}")],#, decesos_nov20],
+            'd_Dic20'   : [str(f"{decesos_dic20:,d}")],#, decesos_dic20],
+            'd_Ene21'   : [str(f"{decesos_ene21:,d}")],#, decesos_ene21],
+            'd_Feb21'   : [str(f"{decesos_feb21:,d}")],#, decesos_feb21],
+            'd_Mar21'   : [str(f"{decesos_mar21:,d}")],#, decesos_mar21],
+            'd_Abr21'   : [str(f"{decesos_abr21:,d}")],#, decesos_abr20],
+            'd_May21'   : [str(f"{decesos_may21:,d}")],#, decesos_may20],
            # 'Jun21'   : [str(f"{decesos_jun21:,d}")],#, decesos_jun20],
            # 'Jul21'   : [str(f"{decesos_jul21:,d}")],#, decesos_jul20],
            # 'Ago21'   : [str(f"{decesos_ago21:,d}")],#, decesos_ago20],
@@ -534,12 +534,11 @@ patabla6a = {
                             }
 
 patabla7a = pd.DataFrame (patabla6a, columns = [
-                                              'Feb20','Mar20','Abr20','May20','Jun20',
-    'Jul20','Ago20','Sept20','Oct20','Nov20','Dic20',
-   'Ene21','Feb21', 'Mar21','Abr21','May21',#'Jun21',
-   # 'Jul21','Ago21','Sept21','Oct21','Nov21','Dic21',
+                                              'd_Feb20','d_Mar20','d_Abr20','d_May20','d_Jun20',
+    'd_Jul20','d_Ago20','d_Sept20','d_Oct20','d_Nov20','d_Dic20',
+   'd_Ene21','d_Feb21', 'd_Mar21','d_Abr21','d_May21',#'d_Jun21',
+   # 'd_Jul21','d_Ago21','d_Sept21','d_Oct21','d_Nov21','d_Dic21',
 ])
-
 ########################################################### Graficas barras
 # 1 Contagios
 g10edosc = go.Figure()
