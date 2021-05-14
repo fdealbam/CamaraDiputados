@@ -204,13 +204,13 @@ contagios_feb21_prom = round(cont_feb21.cases.mean())
 contagios_mar21_prom = round(cont_mar21.cases.mean())
 contagios_abr21_prom = round(cont_abr21.cases.mean())
 contagios_may21_prom = round(cont_may21.cases.mean())
-contagios_jun21_prom = round(cont_jun21.cases.mean())
-contagios_jul21_prom = round(cont_jul21.cases.mean())
-contagios_ago21_prom = round(cont_ago21.cases.mean())
-contagios_sep21_prom = round(cont_sep21.cases.mean())
-contagios_oct21_prom = round(cont_oct21.cases.mean())
-contagios_nov21_prom = round(cont_nov21.cases.mean())
-contagios_dic21_prom = round(cont_dic21.cases.mean())
+#contagios_jun21_prom = round(cont_jun21.cases.mean())
+#contagios_jul21_prom = round(cont_jul21.cases.mean())
+#contagios_ago21_prom = round(cont_ago21.cases.mean())
+#contagios_sep21_prom = round(cont_sep21.cases.mean())
+#contagios_oct21_prom = round(cont_oct21.cases.mean())
+#contagios_nov21_prom = round(cont_nov21.cases.mean())
+#contagios_dic21_prom = round(cont_dic21.cases.mean())
 
 ##############################
 # TRATAMIENTO 
@@ -1028,6 +1028,3 @@ if __name__ == "__main__":
     app.run_server()
     
     
-    
-    
-#https://plotly.com/python/builtin-colorscales/
