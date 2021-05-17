@@ -219,7 +219,7 @@ contagios_may21_prom = round(cont_may21.cases.mean())
 endall = len(decesos)
 
 #Select and sum all columns data
-decesos1 = contagios.iloc[:,3:endall].sum()
+decesos1 = decesos.iloc[:,3:endall].sum()
 
 # Make a DataFrame
 decesos2 = pd.DataFrame(decesos1)
